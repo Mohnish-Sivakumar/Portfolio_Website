@@ -82,7 +82,7 @@ function hydrateRenovate(entry) {
     rosFigure.classList.add("ros-media");
     ros.append(rosFigure);
     const odrive = document.createElement("section");
-    odrive.innerHTML = "<h3>ODrive Hall-Effect Sensor Hub</h3><p>Instead of routing the Hall-effect sensor connections through an ESP32, I worked with the ODrive as a central interface point for the sensor signals. This consolidated the connections and supported cleaner integration with the robot’s motor-control system.</p>";
+    odrive.innerHTML = "<h3>ODrive Hall-Effect Sensor Hub</h3><p>The ODrive was an idea we had as a replacement for the ESP32 setup—we wanted a centralized way to connect to the Hall-effect sensors that controlled the motors and act as a central interface for all the sensor signals. However, once we started integrating it, we realized we would need to PID-tune the wheels properly, and it would not make much of a difference compared to the ESP32 configuration, so it was scrapped. Still, I learned how to connect to Hall-effect sensors, what they were, and how to use USB-TTL to communicate with the ODrive system.</p>";
     odrive.append(mediaFigure(
       "/assets/renovate/odrive-hall-sensor-hub.jpg",
       "Wired ODrive controller used as the central Hall-effect sensor connection point",
@@ -324,7 +324,10 @@ if (route === "/") {
     const destination = outreachIds.includes(id) ? "outreach" : "projects";
     card.removeAttribute("aria-expanded");
     const label = card.querySelector(".open-label");
-    if (label) label.innerHTML = "View details <b>↗</b>";
+    const itemType = destination === "outreach" ? "initiative" : "project";
+    if (label) label.innerHTML = `Click to explore ${itemType} <b>↗</b>`;
+    const title = card.querySelector("h3")?.textContent.trim();
+    if (title) card.setAttribute("aria-label", `Explore details for ${title}`);
     card.addEventListener("click", () => { location.href = `/${destination}#${id}`; });
   });
 }
