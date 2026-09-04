@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 760" role="img" aria-labelledby="title desc">
+  <title id="title">Mohnish portrait placeholder</title><desc id="desc">Replace this file with a portrait photograph.</desc>
+  <defs><radialGradient id="g" cx="40%" cy="30%"><stop stop-color="#483a58"/><stop offset="1" stop-color="#171616"/></radialGradient></defs>
+  <rect width="600" height="760" fill="url(#g)"/><circle cx="300" cy="280" r="112" fill="none" stroke="#d6cfc4" stroke-opacity=".35" stroke-width="3"/><path d="M115 690c18-153 90-232 185-232s167 79 185 232" fill="none" stroke="#d6cfc4" stroke-opacity=".35" stroke-width="3"/><text x="300" y="720" fill="#b5ada1" font-family="monospace" font-size="18" text-anchor="middle" letter-spacing="3">YOUR PORTRAIT</text>
+</svg>
