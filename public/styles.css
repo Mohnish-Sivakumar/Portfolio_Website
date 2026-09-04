@@ -105,3 +105,27 @@
 @media(max-width:800px){.project-thumb{display:none}#renovate .pcb-prototype{width:78%;margin:1.5rem auto 0}#renovate .pcb-prototype img{height:auto;max-height:260px}}
 .outreach-gallery .project-media img{height:300px;max-height:none;object-fit:cover}.outreach-gallery .project-media figcaption{min-height:66px}.robotics-gallery .project-media:first-child{grid-column:1/-1}.robotics-gallery .project-media:first-child img{height:360px}.rewired-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.ai-curriculum-gallery .project-media img{height:330px;max-height:none;object-fit:contain}
 @media(max-width:800px){.robotics-gallery .project-media:first-child{grid-column:1}.outreach-gallery,.rewired-gallery{grid-template-columns:1fr}.outreach-gallery .project-media img,.robotics-gallery .project-media:first-child img,.ai-curriculum-gallery .project-media img{height:auto;max-height:360px}.outreach-gallery .project-media figcaption{min-height:0}}
+.mechanical-cad img{max-height:430px;object-fit:contain;background:#f4f4f2}
+.mechanical-gallery{align-items:stretch}.mechanical-gallery .project-media{height:100%}.mechanical-gallery .project-media img{width:100%;height:330px;max-height:none}
+.honor-list li{grid-template-columns:5rem minmax(0,1.55fr) minmax(12rem,.65fr);align-items:start}.honor-list strong{display:block;line-height:1.15}.honor-list p{max-width:780px;margin:.75rem 0 0;color:var(--muted);font-size:clamp(.9rem,1.15vw,1.05rem);line-height:1.65}.honor-list small{padding-top:.2rem;font-family:"DM Mono",monospace;line-height:1.7;text-align:right}.honor-list li:hover strong{color:var(--acid);transition:color .25s}
+@media(max-width:800px){.honor-list li{grid-template-columns:2.5rem 1fr;gap:1rem}.honor-list li>div{grid-column:2}.honor-list small{grid-column:2;text-align:left;padding-top:0}}
+.gps-gallery {
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+}
+
+.gps-gallery .project-media img {
+  width: 100%;
+  height: 310px;
+  object-fit: contain;
+}
+
+@media (max-width: 800px) {
+  .gps-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .gps-gallery .project-media img {
+    height: auto;
+    max-height: 340px;
+  }
+}

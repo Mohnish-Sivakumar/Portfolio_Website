@@ -53,11 +53,24 @@ function hydrateRenovate(entry) {
   ));
 
   const gps = findSection("GPS / Localization System");
-  gps?.querySelector(".media-slot")?.replaceWith(mediaFigure(
-    "/assets/renovate/gps-mission-map.jpg",
-    "Terry Mission Map showing the robot position, selected destination, GPS coordinates, and simulation controls",
-    "Leaflet.js GPS mission-map interface for visualizing Terry’s live position and selected destination."
-  ));
+  const gpsSlot = gps?.querySelector(".media-slot");
+  if (gpsSlot) {
+    const gpsGallery = document.createElement("div");
+    gpsGallery.className = "media-grid gps-gallery";
+    gpsGallery.append(
+      mediaFigure(
+        "/assets/renovate/sparkfun-gps-hardware.jpg",
+        "SparkFun LG290P quad-band GNSS receiver used in Terry’s localization stack",
+        "SparkFun LG290P quad-band GNSS receiver integrated with RTK corrections for precise positioning."
+      ),
+      mediaFigure(
+        "/assets/renovate/gps-mission-map.jpg",
+        "Terry Mission Map showing the robot position, selected destination, GPS coordinates, and simulation controls",
+        "Leaflet.js GPS mission-map interface for visualizing Terry’s live position and selected destination."
+      )
+    );
+    gpsSlot.replaceWith(gpsGallery);
+  }
 
   const ros = findSection("ROS2 Autonomy Stack");
   if (ros) {
@@ -80,7 +93,24 @@ function hydrateRenovate(entry) {
 
   const mechanical = findSection("Mechanical Design");
   mechanical?.querySelector(".media-grid")?.remove();
-  mechanical?.classList.add("text-only-section");
+  if (mechanical) {
+    const mechanicalGallery = document.createElement("div");
+    mechanicalGallery.className = "media-grid mechanical-gallery";
+    const cadFigure = mediaFigure(
+      "/assets/renovate/terry-onshape-cad.jpg",
+      "Onshape CAD model of Terry showing its chassis, wheels, exterior panels, and roof-loading mechanism",
+      "Onshape assembly of Terry’s chassis, exterior panel system, and roof-loading structure."
+    );
+    cadFigure.classList.add("mechanical-cad");
+    const componentFigure = mediaFigure(
+      "/assets/renovate/mechanical-component-cad.jpg",
+      "Detailed Onshape CAD view of a custom mechanical enclosure component",
+      "Detailed CAD view of a custom mechanical component designed for Terry."
+    );
+    componentFigure.classList.add("mechanical-cad");
+    mechanicalGallery.append(cadFigure, componentFigure);
+    mechanical.append(mechanicalGallery);
+  }
 
   findSection("Terry in action")?.remove();
 }
