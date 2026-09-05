@@ -126,6 +126,21 @@ function hydrateFtc(entry) {
   breakBeamFigure.classList.add("break-beam-media");
   breakBeam?.querySelector(".media-slot")?.replaceWith(breakBeamFigure);
 
+  const prism = sections.find((section) => section.querySelector("h3")?.textContent.includes("Prism Color Sensor"));
+  const prismGallery = prism?.querySelector(".media-grid");
+  prismGallery?.replaceChildren(
+    mediaFigure(
+      "/assets/ftc/prism-sensor-enclosure.jpg",
+      "CAD view of the compact prism color-sensor enclosure",
+      "External CAD view of the three-channel prism sensor enclosure."
+    ),
+    mediaFigure(
+      "/assets/ftc/prism-sensor-optical-path.jpg",
+      "Transparent CAD view showing three angled prisms redirecting separate light paths toward the color sensor",
+      "Internal optical paths redirecting light from three game-piece positions toward one color sensor."
+    )
+  );
+
   const autonomous = sections.find((section) => section.querySelector("h3")?.textContent.includes("Autonomous Software"));
   const autonomousVideo = mediaVideo(
     "/assets/ftc/autonomous-software-demo.m4v",
@@ -210,16 +225,18 @@ function hydrateAiCurriculum(entry) {
 }
 
 function hydrateRoboticsOutreach(entry) {
-  const slot = entry.querySelector(".media-slot");
-  if (!slot) return;
-  const gallery = document.createElement("div");
-  gallery.className = "media-grid outreach-gallery robotics-gallery";
-  gallery.append(
-    mediaFigure("/assets/outreach/robotics/camp-robot.jpg", "Student-built educational robot at a robotics camp", "A student-built robot ready for programming and testing."),
-    mediaFigure("/assets/outreach/robotics/student-build-session.jpg", "Students collaborating on a hands-on robotics build", "Small-group mentorship during a hands-on robot build."),
-    mediaFigure("/assets/outreach/robotics/group-workshop.jpg", "Large student robotics workshop led around a demonstration table", "A community workshop bringing students together to build and learn robotics.")
-  );
-  slot.replaceWith(gallery);
+  const sections = [...entry.querySelectorAll(".case-study section")];
+  const programs = [
+    ["RoboCamp", "/assets/outreach/robotics/camp-robot.jpg", "LEGO Spike Prime robot built during RoboCamp", "LEGO Spike Prime robotics introduces younger students to building, programming, and mission-based competition."],
+    ["RPEX", "/assets/outreach/robotics/student-build-session.jpg", "Students collaborating during an RPEX robotics session", "Small-group mentorship helps students keep building technical confidence throughout the school year."],
+    ["Modulink", "/assets/outreach/robotics/group-workshop.jpg", "Students gathered around a competitive robotics demonstration", "Modulink bridges LEGO robotics and high-school competition through machining, Java, and team-based engineering."]
+  ];
+  programs.forEach(([name, src, alt, caption]) => {
+    const section = sections.find((item) => item.querySelector("h3")?.textContent.includes(name));
+    const figure = mediaFigure(src, alt, caption);
+    figure.classList.add("outreach-program-media");
+    section?.querySelector(".media-slot")?.replaceWith(figure);
+  });
 }
 
 function hydrateRewired(entry) {
