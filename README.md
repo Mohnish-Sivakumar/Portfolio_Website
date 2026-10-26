@@ -19,20 +19,15 @@ One-time setup: in the repo's **Settings → Pages**, set **Source** to
 **GitHub Actions**. The site will be published at
 `https://mohnish-sivakumar.github.io/Portfolio_Website/`.
 
-Note: the `mohnish-sivakumar.github.io` account repo has a custom
-domain (`ftc.whitneyrobotics.org`) attached, and GitHub Pages applies
-that custom domain to *all* Pages sites on the account — so
-`mohnish-sivakumar.github.io/Portfolio_Website/` 301-redirects to
-`ftc.whitneyrobotics.org/Portfolio_Website/`, which is where this site
-actually resolves. Remove that custom domain (or give it a dedicated
-one) if that's not the intended public URL.
-
 All page/asset links resolve relative to a `<base>` tag that's set at
 runtime (see the inline script at the top of `public/index.html`): it
 points at `/Portfolio_Website/` whenever the URL path starts with
 `/Portfolio_Website`, and at `/` otherwise (Railway, localhost). This
-is path-based rather than hostname-based so it keeps working even
-behind the redirect above. If this repo is ever renamed, update the
+is path-based rather than hostname-based, so it also keeps working if
+this account's `mohnish-sivakumar.github.io` repo ever has a custom
+domain attached again (GitHub Pages applies an account-wide custom
+domain to every Pages site on the account, including this one, as a
+sub-path of that domain). If this repo is ever renamed, update the
 path in that script to match.
 
 ## Deploy on Railway
