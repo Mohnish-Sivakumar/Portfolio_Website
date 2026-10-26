@@ -9,7 +9,7 @@
   <script>
     (function () {
       var base = document.createElement("base");
-      base.href = location.hostname.endsWith("github.io") ? "/Portfolio_Website/" : "/";
+      base.href = /^\/Portfolio_Website(\/|$)/.test(location.pathname) ? "/Portfolio_Website/" : "/";
       document.head.appendChild(base);
     })();
   </script>
