@@ -1,6 +1,6 @@
 # Mohnish Sivakumar — Portfolio
 
-A lightweight, dependency-free portfolio ready for GitHub and Railway.
+A lightweight, dependency-free portfolio ready for GitHub Pages and Railway.
 
 ## Run locally
 
@@ -9,6 +9,22 @@ npm start
 ```
 
 Open `http://localhost:3000`.
+
+## Deploy on GitHub Pages
+
+The site (everything in `public/`) deploys automatically via the
+`.github/workflows/pages.yml` workflow on every push to `main`.
+
+One-time setup: in the repo's **Settings → Pages**, set **Source** to
+**GitHub Actions**. The site will be published at
+`https://mohnish-sivakumar.github.io/Portfolio_Website/`.
+
+All page/asset links resolve relative to a `<base>` tag that's set at
+runtime (see the inline script at the top of `public/index.html`): it
+points at `/Portfolio_Website/` when the hostname ends in `github.io`,
+and at `/` everywhere else (Railway, localhost, or a future custom
+domain at the root). If this repo is ever renamed, update the path in
+that script to match.
 
 ## Deploy on Railway
 
