@@ -293,3 +293,30 @@
 .case-study section li {
   line-height: 1.85;
 }
+
+/* Stack multi-image media-grids one per row instead of squeezing them into two columns, at the
+   same image size used by the site's other photo galleries (e.g. .axol-gallery, .mechanical-gallery). */
+.media-grid.stacked {
+  grid-template-columns: 1fr;
+}
+.media-grid.stacked .project-media img {
+  width: 100%;
+  height: 340px;
+  max-height: none;
+  object-fit: contain;
+}
+
+/* Visible "in progress" status badge for project cards. The card-top tag line is hidden by
+   ".card-top span:last-child{display:none}", so this lives in the card-kicker row instead. */
+.status-badge {
+  display: inline-block;
+  margin-left: .75rem;
+  padding: .3rem .65rem;
+  border: 1px solid var(--acid);
+  border-radius: 999px;
+  color: var(--acid);
+  font: 500 .58rem "DM Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  vertical-align: middle;
+}

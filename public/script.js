@@ -1,6 +1,6 @@
 const basePath = new URL(".", document.baseURI).pathname.replace(/\/$/, "");
 const route = location.pathname.slice(basePath.length).replace(/\/$/, "") || "/";
-const projectIds = ["renovate", "ftc", "kibo", "neural", "axol"];
+const projectIds = ["reaction-wheel", "solar-array", "archerfish", "cryocooler", "renovate", "ftc", "kibo", "neural", "axol"];
 const outreachIds = ["robotics-outreach", "rewired", "ai-curriculum"];
 
 function mediaFigure(src, alt, caption) {
@@ -262,6 +262,200 @@ function hydrateNeural(entry) {
   ));
 }
 
+function hydrateCryocooler(entry) {
+  const sections = [...entry.querySelectorAll(".case-study section")];
+
+  const overview = sections.find((section) => section.querySelector("h3")?.textContent.includes("Mission"));
+  overview?.querySelector(".media-slot")?.replaceWith(mediaFigure(
+    "assets/cryocooler/system-architecture-diagram.webp",
+    "Block diagram of the cryocooler payload interface's power path and temperature-control loop",
+    "Power path from the 28V bus to the cryocooler motor, and the temperature-control loop from RTD sensing to CAN telemetry."
+  ));
+
+  const power = sections.find((section) => section.querySelector("h3")?.textContent.includes("Input protection"));
+  power?.querySelector(".media-grid")?.replaceChildren(
+    mediaFigure(
+      "assets/cryocooler/schematic-input-protection.webp",
+      "TPS26630 eFuse and TVS diode input-protection schematic",
+      "eFuse and TVS protection stage guarding the board against bus voltage spikes and overcurrent."
+    ),
+    mediaFigure(
+      "assets/cryocooler/schematic-buck-converter.webp",
+      "LM76003 buck converter schematic stepping 28V down to 12V for the cryocooler motor",
+      "28V-to-12V buck converter powering the cryocooler's motor section."
+    ),
+    mediaFigure(
+      "assets/cryocooler/schematic-5v-dcdc.webp",
+      "TSR 1.5-2450E DC-DC module schematic deriving 5V for the digital and sensing electronics",
+      "Isolated 28V-to-5V supply for the digital and sensing side of the board."
+    )
+  );
+
+  const motor = sections.find((section) => section.querySelector("h3")?.textContent.includes("Driving the cryocooler motor"));
+  motor?.querySelector(".media-slot")?.replaceWith(mediaFigure(
+    "assets/cryocooler/schematic-motor-driver.webp",
+    "MCF8316A sensorless FOC motor-driver schematic driving the cryocooler compressor motor",
+    "Sensorless FOC motor driver commutating the cryocooler's 3-phase compressor motor from back-EMF."
+  ));
+
+  const sensing = sections.find((section) => section.querySelector("h3")?.textContent.includes("Temperature sensing"));
+  sensing?.querySelector(".media-grid")?.replaceChildren(
+    mediaFigure(
+      "assets/cryocooler/schematic-rtd-adc.webp",
+      "ADS124S08 precision ADC schematic reading the 4-wire PT100 RTD",
+      "Precision ADC reading the 4-wire PT100 RTD mounted near the cryocooler's cold tip."
+    ),
+    mediaFigure(
+      "assets/cryocooler/schematic-teensy-can.webp",
+      "Teensy 4.1 controller and SN65HVD230 CAN transceiver schematic",
+      "Teensy 4.1 controller closing the temperature loop and talking to the spacecraft computer over CAN."
+    )
+  );
+
+  const verification = sections.find((section) => section.querySelector("h3")?.textContent.includes("Simulating"));
+  verification?.querySelector(".media-slot")?.replaceWith(mediaFigure(
+    "assets/cryocooler/buck-converter-verification.webp",
+    "Steady-state, input-transient, and load-transient simulation plots for the 28V-to-12V buck converter",
+    "Buck-converter verification across steady-state, input-transient (25-32V), and load-transient (0.2-2A) conditions."
+  ));
+
+  const build = sections.find((section) => section.querySelector("h3")?.textContent.includes("Layout"));
+  build?.querySelector(".media-grid")?.replaceChildren(
+    mediaFigure(
+      "assets/cryocooler/board-angle-render.webp",
+      "Angled 3D render of the assembled cryocooler payload interface board",
+      "Angled render of the assembled board, with the Teensy module integrated directly onto the PCB."
+    ),
+    mediaFigure(
+      "assets/cryocooler/pcb-layout-routing.webp",
+      "Routed PCB layout of the cryocooler payload interface board",
+      "Routed board layout integrating power, motor-drive, sensing, and control sections."
+    ),
+    mediaFigure(
+      "assets/cryocooler/board-top-render.webp",
+      "3D render of the assembled cryocooler payload interface board",
+      "Top-down render of the finished board."
+    )
+  );
+}
+
+function hydrateReactionWheel(entry) {
+  const sections = [...entry.querySelectorAll(".case-study section")];
+
+  const motor = sections.find((section) => section.querySelector("h3")?.textContent.includes("Dual-stator"));
+  motor?.querySelector(".media-slot")?.replaceWith(mediaFigure(
+    "assets/reaction-wheel/stator-coil-pcb.webp",
+    "3D render of the stator PCB showing the custom etched coil traces",
+    "The stator PCB: custom copper coil traces etched directly into the board, standing in for a conventional motor."
+  ));
+
+  const power = sections.find((section) => section.querySelector("h3")?.textContent.includes("Power electronics"));
+  power?.querySelector(".media-slot")?.replaceWith(mediaFigure(
+    "assets/reaction-wheel/schematic-power-electronics.png",
+    "Power electronics schematic: input protection and 12V-to-3.3V regulation",
+    "Input protection and regulation: a TPS259474 load switch guarding the 12V rail ahead of an AP63203 buck converter stepping down to 3.3V."
+  ));
+}
+
+function hydrateSolarArray(entry) {
+  const sections = [...entry.querySelectorAll(".case-study section")];
+
+  const overview = sections.find((section) => section.querySelector("h3")?.textContent.includes("SpaceOTTER"));
+  overview?.querySelector(".media-slot")?.replaceWith(mediaFigure(
+    "assets/solar-array/space-otter-frame-cad.webp",
+    "CAD render of the SpaceOTTER floating spacecraft simulator frame, with the payload mounting plate on top",
+    "SpaceOTTER's frame, with the circular mounting plate where the solar array module attaches as a hosted payload."
+  ));
+
+  const sunSensing = sections.find((section) => section.querySelector("h3")?.textContent.includes("Sun sensing"));
+  sunSensing?.querySelector(".media-grid")?.replaceChildren(
+    mediaFigure(
+      "assets/solar-array/sun-sensor-circuit.png",
+      "Circuit diagram of the six-sensor coarse sun sensor, Raspberry Pi, and PCA9685 servo driver",
+      "Bench circuit: six light-threshold sensors feeding a Raspberry Pi, which drives two servos through a PCA9685 PWM driver."
+    ),
+    mediaFigure(
+      "assets/solar-array/sun-sensor-gui.webp",
+      "Simulation GUI computing a 2D light-direction vector and heading from six sensor states",
+      "Simulation GUI validating the light-direction vector math, with a mouse standing in for the sun before hardware testing."
+    )
+  );
+
+  const status = sections.find((section) => section.querySelector("h3")?.textContent.includes("Status"));
+  status?.querySelector(".media-slot")?.replaceWith(mediaVideo(
+    "assets/solar-array/solar-array-detail.m4v",
+    "Testing the deployment hinge for the solar array module, with angle sensors instrumenting each joint on a bench mockup."
+  ));
+}
+
+function hydrateArcherfish(entry) {
+  const sections = [...entry.querySelectorAll(".case-study section")];
+
+  const board = sections.find((section) => section.querySelector("h3")?.textContent.includes("Six valves"));
+  board?.querySelector(".media-grid")?.replaceChildren(
+    mediaFigure(
+      "assets/archerfish/fill-station-board-render.png",
+      "3D render of the Archerfish fill station controller PCB, branded CPSS",
+      "The fill-station controller: six valve drivers, four pressure-transducer connectors, and a Teensy 4.1."
+    ),
+    mediaFigure(
+      "assets/archerfish/fill-station-pcb-layout.png",
+      "Routed PCB layout of the Archerfish fill station controller",
+      "Routed layout integrating power input, conversion, valve switching, sensing, and monitoring sections."
+    )
+  );
+
+  const power = sections.find((section) => section.querySelector("h3")?.textContent.includes("Power path"));
+  power?.querySelector(".media-grid")?.replaceChildren(
+    mediaFigure(
+      "assets/archerfish/schematic-input-protection.png",
+      "TPS26630 eFuse and TVS diode input-protection schematic",
+      "24V input protection: TPS26630 eFuse with configurable UVLO/OVP thresholds and a TVS diode."
+    ),
+    mediaFigure(
+      "assets/archerfish/schematic-buck-5v.png",
+      "LMQ61460 buck converter schematic stepping 24V down to 5V",
+      "24V-to-5V buck converter powering the Teensy and logic."
+    ),
+    mediaFigure(
+      "assets/archerfish/schematic-buck-12v.png",
+      "LMQ61460 buck converter schematic stepping 24V down to 12V",
+      "24V-to-12V buck converter powering the two 12V valve drivers."
+    ),
+    mediaFigure(
+      "assets/archerfish/schematic-power-monitoring.png",
+      "INA237 power monitor schematic watching bus voltage and current",
+      "INA237 power monitor raising an alert back to the Teensy before a fault becomes a hazard."
+    )
+  );
+
+  const valves = sections.find((section) => section.querySelector("h3")?.textContent.includes("Driving the valves"));
+  valves?.querySelector(".media-grid")?.replaceChildren(
+    mediaFigure(
+      "assets/archerfish/schematic-valve-driver-24v.png",
+      "MOSFET low-side valve-driver schematic for the four 24V valve channels",
+      "24V valve-driver channel: MOSFET low-side switch with flyback protection."
+    ),
+    mediaFigure(
+      "assets/archerfish/schematic-valve-driver-12v.png",
+      "MOSFET low-side valve-driver schematic for the two 12V valve channels",
+      "12V valve-driver channel, the same topology running off the regulated 12V rail."
+    ),
+    mediaFigure(
+      "assets/archerfish/schematic-pressure-transducer.png",
+      "Pressure-transducer sensing circuit schematic",
+      "One of four pressure-transducer channels feeding tank and line pressure back to the Teensy."
+    )
+  );
+
+  const telemetry = sections.find((section) => section.querySelector("h3")?.textContent.includes("Remote telemetry"));
+  telemetry?.querySelector(".media-slot")?.replaceWith(mediaFigure(
+    "assets/archerfish/schematic-mcu-ethernet.webp",
+    "Teensy 4.1 signal routing and Ethernet magnetics schematic",
+    "Teensy signal routing alongside the Ethernet jack and magnetics that carry the telemetry link."
+  ));
+}
+
 function renderArchive(kind) {
   const ids = kind === "projects" ? projectIds : outreachIds;
   const title = kind === "projects" ? "Projects" : "Outreach";
@@ -287,6 +481,10 @@ function renderArchive(kind) {
     if (id === "kibo") hydrateKibo(entry);
     if (id === "axol") hydrateAxol(entry);
     if (id === "neural") hydrateNeural(entry);
+    if (id === "cryocooler") hydrateCryocooler(entry);
+    if (id === "reaction-wheel") hydrateReactionWheel(entry);
+    if (id === "solar-array") hydrateSolarArray(entry);
+    if (id === "archerfish") hydrateArcherfish(entry);
     if (id === "robotics-outreach") hydrateRoboticsOutreach(entry);
     if (id === "rewired") hydrateRewired(entry);
     if (id === "ai-curriculum") hydrateAiCurriculum(entry);
